@@ -1,0 +1,77 @@
+#class-container {
+  #student-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    list-style-type: none;
+  }
+  .student {
+    width: 100px;
+    border: 1px solid black;
+    margin-right: 50px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+
+    img {
+      border-radius: 50%;
+    }
+  }
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1040;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1050;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  outline: 0;
+  display: flex;
+  align-items: center;
+}
+
+.modal {
+  z-index: 100;
+  background: #fff;
+  position: relative;
+  margin: auto;
+  border-radius: 5px;
+  max-width: 500px;
+  width: 80%;
+  padding: 1rem;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-body {
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.modal-close-button {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #000;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+}
