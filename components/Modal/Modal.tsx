@@ -71,7 +71,7 @@ const Modal = ({ isShowing, hide, modalContext, student }: Props) => {
                       Prénom :
                       <input
                         type="text"
-                        name="name"
+                        name="firstname"
                         value={modifiedStudent.firstname}
                         onChange={onChangeFirstname}
                       />
@@ -80,7 +80,7 @@ const Modal = ({ isShowing, hide, modalContext, student }: Props) => {
                       Nom de famille :
                       <input
                         type="text"
-                        name="name"
+                        name="lastname"
                         value={modifiedStudent.lastname}
                         onChange={onChangeLastname}
                       />
