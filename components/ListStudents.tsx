@@ -1,19 +1,22 @@
 import * as React from "react";
+import useStudents from "../hooks/students";
 import { Student } from "../interfaces";
 import StudentCard from "./StudentCard";
 
-type Props = {
-  students: Student[];
+const ListStudents = () => {
+  const { students } = useStudents();
+  if (students) {
+    return (
+      <ul id="student-list">
+        {students.map((student: Student) => (
+          <li key={student.id}>
+            <StudentCard student={student} />
+          </li>
+        ))}
+      </ul>
+    );
+  }
+  return null;
 };
-
-const ListStudents = ({ students }: Props) => (
-  <ul id="student-list">
-    {students.map((student: Student) => (
-      <li key={student.id}>
-        <StudentCard student={student} />
-      </li>
-    ))}
-  </ul>
-);
 
 export default ListStudents;

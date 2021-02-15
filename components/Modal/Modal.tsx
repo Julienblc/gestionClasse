@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
+import useStudents from "../../hooks/students";
 import { Student } from "../../interfaces";
-import { sampleStudentData } from "../../utils/sample-students";
 
 type Props = {
   isShowing: boolean;
@@ -10,13 +10,17 @@ type Props = {
 };
 
 const Modal = ({ isShowing, hide, student }: Props) => {
-  const studentData = sampleStudentData[student.id];
-  const [modifiedStudent, setModifiedStudent] = useState(studentData);
+  const [modifiedStudent, setModifiedStudent] = useState(student);
+  const { students, setStudents } = useStudents();
   const handleFormSubmit = (event: any) => {
-    sampleStudentData[student.id] = modifiedStudent;
-    event.preventDefault();
-    console.log(sampleStudentData);
-    hide();
+    if (students) {
+      let newStudents = students;
+      newStudents[student.id] = modifiedStudent;
+      setStudents(newStudents);
+      event.preventDefault();
+      console.log(students);
+      //hide();
+    }
   };
 
   const onChangeFirstname = (event: any) => {
