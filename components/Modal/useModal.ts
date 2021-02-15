@@ -1,15 +1,20 @@
 import { useState } from "react";
 
+export type ModalContext = "modify" | "delete" | "";
+
 const useModal = () => {
   const [isShowing, setIsShowing] = useState(false);
+  const [modalContext, setModalContext] = useState<ModalContext>("");
 
-  function toggle() {
+  const toggle = (context: ModalContext) => {
     setIsShowing(!isShowing);
-  }
+    setModalContext(context);
+  };
 
   return {
     isShowing,
     toggle,
+    modalContext,
   };
 };
 

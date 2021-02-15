@@ -8,7 +8,8 @@ type Props = {
 };
 
 const StudentCard = ({ student }: Props) => {
-  const { isShowing, toggle } = useModal();
+  const { isShowing, toggle, modalContext } = useModal();
+
   return (
     <div className="student">
       <img
@@ -17,9 +18,14 @@ const StudentCard = ({ student }: Props) => {
       />
       <h3>{student.firstname}</h3>
       <h3>{student.lastname}</h3>
-      <button onClick={toggle}>Modifier</button>
-      <button>Supprimer</button>
-      <Modal isShowing={isShowing} hide={toggle} student={student} />
+      <button onClick={() => toggle("modify")}>Modifier</button>
+      <button onClick={() => toggle("delete")}>Supprimer</button>
+      <Modal
+        isShowing={isShowing}
+        hide={toggle}
+        student={student}
+        modalContext={modalContext}
+      />
     </div>
   );
 };
