@@ -1,11 +1,11 @@
 import { createContext, useState } from "react";
 import { Student } from "../interfaces";
 
-type StudentsResponse = Student[];
+type StudentsArray = Student[];
 
 type ContextProps = {
-  students: StudentsResponse | null;
-  setStudents: (students: StudentsResponse | null) => void;
+  readonly students: StudentsArray | null;
+  readonly setStudents: (students: StudentsArray | null) => void;
 };
 
 export const StudentsContext = createContext<ContextProps>({
@@ -14,12 +14,11 @@ export const StudentsContext = createContext<ContextProps>({
 });
 
 const StudentsProvider: React.FC<{
-  students: StudentsResponse | null;
+  students: StudentsArray | null;
 }> = ({ students, children }) => {
-  const [
-    currentStudents,
-    setCurrentStudents,
-  ] = useState<StudentsResponse | null>(students);
+  const [currentStudents, setCurrentStudents] = useState<StudentsArray | null>(
+    students
+  );
   return (
     <StudentsContext.Provider
       value={{

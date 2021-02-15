@@ -14,12 +14,11 @@ const Modal = ({ isShowing, hide, student }: Props) => {
   const { students, setStudents } = useStudents();
   const handleFormSubmit = (event: any) => {
     if (students) {
-      let newStudents = students;
+      let newStudents = [...students];
       newStudents[student.id] = modifiedStudent;
       setStudents(newStudents);
       event.preventDefault();
-      console.log(students);
-      //hide();
+      hide();
     }
   };
 
