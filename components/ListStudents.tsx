@@ -50,15 +50,21 @@ const ListStudents = () => {
   };
 
   return (
-    <div>
-      <input
-        type="text"
-        name="search"
-        placeholder="Rechercher un élève par nom"
-        value={searchStudent}
-        onChange={onChangeSearch}
-      />
-      <button onClick={() => toggle("add")}>Ajouter un élève</button>
+    <>
+      <div id="actions-container">
+        <button id="add-student-button" onClick={() => toggle("add")}>
+          Ajouter un élève
+        </button>
+        <input
+          type="text"
+          name="search"
+          placeholder="Rechercher un élève par nom"
+          id="search-student-input"
+          value={searchStudent}
+          onChange={onChangeSearch}
+        />
+      </div>
+
       <ul id="student-list">{renderStudents()}</ul>
       <Modal
         isShowing={isShowing}
@@ -71,7 +77,7 @@ const ListStudents = () => {
         }}
         modalContext="add"
       />
-    </div>
+    </>
   );
 };
 

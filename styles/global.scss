@@ -1,4 +1,52 @@
+$dark-blue: #091035;
+$green: rgba(159, 250, 92, 0.9);
+$red: #ff3030;
+
+body {
+  background: rgb(67, 120, 247);
+  background: linear-gradient(
+    172deg,
+    rgba(67, 120, 247, 1) 0%,
+    rgba(67, 169, 247, 1) 50%,
+    rgba(67, 193, 247, 1) 100%
+  );
+
+  body {
+    font-family: "Roboto", sans-serif;
+  }
+}
+
 #class-container {
+  padding: 30px;
+
+  #page-title {
+    margin-left: 90px;
+  }
+
+  #actions-container {
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    margin-left: 90px;
+
+    #search-student-input {
+      width: 200px;
+      height: 20px;
+      padding: 4px;
+      border-radius: 5px;
+      margin-top: 20px;
+      border: 2px solid $dark-blue;
+    }
+
+    #add-student-button {
+      border: 2px solid $green;
+      border-radius: 20px;
+      width: 200px;
+      font-size: large;
+      cursor: pointer;
+    }
+  }
+
   #student-list {
     display: flex;
     flex-direction: row;
@@ -6,18 +54,49 @@
     list-style-type: none;
   }
   .student {
-    width: 100px;
-    border: 1px solid black;
-    margin-right: 50px;
+    width: 150px;
+    background-color: white;
+    border: 2px solid $dark-blue;
+    border-radius: 10px;
+    margin: 20px 50px;
     padding: 20px;
     display: flex;
     flex-direction: column;
 
-    img {
+    &__firstname {
+      margin: 10px 0px;
+      color: $dark-blue;
+    }
+    &__lastname {
+      margin-top: 0px;
+      color: $dark-blue;
+    }
+
+    &__picture {
       border-radius: 50%;
+    }
+
+    &__button {
+      border: 2px solid;
+      margin-bottom: 10px;
+      border-radius: 20px;
+      cursor: pointer;
+
+      &-modify {
+        color: white;
+        border-color: $dark-blue;
+        background-color: $dark-blue;
+      }
+      &-delete {
+        color: $red;
+        border-color: $red;
+        background-color: transparent;
+      }
     }
   }
 }
+
+//#region MODAL
 
 .modal-overlay {
   position: fixed;
@@ -27,6 +106,7 @@
   height: 100vh;
   z-index: 1040;
   background-color: rgba(0, 0, 0, 0.5);
+  font-family: "Roboto", sans-serif;
 }
 
 .modal-wrapper {
@@ -58,12 +138,56 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 10px;
 }
 
 .modal-body {
   form {
     display: flex;
     flex-direction: column;
+
+    .form-input {
+      display: flex;
+      flex-direction: row;
+      margin-bottom: 10px;
+
+      label {
+        width: 150px;
+      }
+      input {
+        width: 350px;
+      }
+    }
+
+    #form-submit-button {
+      border: 2px solid $dark-blue;
+      border-radius: 5px;
+      color: $dark-blue;
+      font-size: medium;
+      margin-top: 20px;
+      cursor: pointer;
+    }
+  }
+
+  .delete-user-inputs {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+
+    &__button {
+      width: 200px;
+      border-radius: 5px;
+      font-size: large;
+      cursor: pointer;
+
+      &-yes {
+        border: 2px solid $red;
+        color: $red;
+      }
+      &-no {
+        border: 2px solid $dark-blue;
+      }
+    }
   }
 }
 
@@ -75,3 +199,5 @@
   border: none;
   background: transparent;
 }
+
+//#endregion

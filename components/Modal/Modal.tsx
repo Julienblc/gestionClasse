@@ -90,11 +90,11 @@ const Modal = ({ isShowing, hide, modalContext, student }: Props) => {
             <div className="modal-wrapper">
               <div className="modal">
                 <div className="modal-header">
-                  <h4>
+                  <h3 className="modal-title">
                     {modalContext === "modify"
                       ? `Modifier ${student.firstname} ${student.lastname}`
                       : "Ajouter un élève"}
-                  </h4>
+                  </h3>
                   <button
                     type="button"
                     className="modal-close-button"
@@ -111,17 +111,18 @@ const Modal = ({ isShowing, hide, modalContext, student }: Props) => {
                         : handleAddFormSubmit
                     }
                   >
-                    <label>
-                      Prénom :
+                    <div className="form-input">
+                      <label>Prénom :</label>
                       <input
                         type="text"
                         name="firstname"
                         value={modifiedStudent.firstname}
                         onChange={onChangeFirstname}
+                        required
                       />
-                    </label>
-                    <label>
-                      Nom de famille :
+                    </div>
+                    <div className="form-input">
+                      <label>Nom de famille :</label>
                       <input
                         type="text"
                         name="lastname"
@@ -129,17 +130,25 @@ const Modal = ({ isShowing, hide, modalContext, student }: Props) => {
                         onChange={onChangeLastname}
                         required
                       />
-                    </label>
-                    <label>
-                      Image url :
+                    </div>
+                    <div className="form-input">
+                      <label>Image url :</label>
                       <input
                         type="text"
                         name="picture_url"
                         value={modifiedStudent.picture_url}
                         onChange={onChangePictureUrl}
                       />
-                    </label>
-                    <input type="submit" value="Envoyer" />
+                    </div>
+                    <input
+                      id="form-submit-button"
+                      type="submit"
+                      value={
+                        modalContext === "modify"
+                          ? `Valider les modifications`
+                          : "Ajouter l'élève"
+                      }
+                    />
                   </form>
                 </div>
               </div>
@@ -155,7 +164,9 @@ const Modal = ({ isShowing, hide, modalContext, student }: Props) => {
             <div className="modal-wrapper">
               <div className="modal">
                 <div className="modal-header">
-                  <h4>Supprimer {student.firstname}</h4>
+                  <h4 className="modal-title">
+                    Supprimer {student.firstname} {student.lastname} ?
+                  </h4>
                   <button
                     type="button"
                     className="modal-close-button"
@@ -165,9 +176,19 @@ const Modal = ({ isShowing, hide, modalContext, student }: Props) => {
                   </button>
                 </div>
                 <div className="modal-body">
-                  <div>
-                    <button onClick={deleteUser}>Oui</button>
-                    <button onClick={() => hide("")}>Non</button>
+                  <div className="delete-user-inputs">
+                    <button
+                      className="delete-user-inputs__button delete-user-inputs__button-yes"
+                      onClick={deleteUser}
+                    >
+                      Oui
+                    </button>
+                    <button
+                      className="delete-user-inputs__button delete-user-inputs__button-no"
+                      onClick={() => hide("")}
+                    >
+                      Non
+                    </button>
                   </div>
                 </div>
               </div>

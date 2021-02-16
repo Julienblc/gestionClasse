@@ -7,6 +7,8 @@ type Props = {
   student: Student;
 };
 
+const nameLimit = 11;
+
 const StudentCard = ({ student }: Props) => {
   const { isShowing, toggle, modalContext } = useModal();
 
@@ -18,16 +20,34 @@ const StudentCard = ({ student }: Props) => {
     }
   };
 
+  const formatName = (name: string) => {
+    if (name.length > nameLimit) {
+      return `${name.slice(0, nameLimit)}..`;
+    }
+    return name;
+  };
+
   return (
     <div className="student">
       <img
+        className="student__picture"
         src={getStudentPictureUrl()}
         alt={`${student.firstname} ${student.lastname}`}
       />
-      <h3>{student.firstname}</h3>
-      <h3>{student.lastname}</h3>
-      <button onClick={() => toggle("modify")}>Modifier</button>
-      <button onClick={() => toggle("delete")}>Supprimer</button>
+      <h3 className="student__firstname">{formatName(student.firstname)}</h3>
+      <h4 className="student__lastname">{formatName(student.lastname)}</h4>
+      <button
+        className="student__button student__button-modify"
+        onClick={() => toggle("modify")}
+      >
+        Modifier
+      </button>
+      <button
+        className="student__button student__button-delete"
+        onClick={() => toggle("delete")}
+      >
+        Supprimer
+      </button>
       <Modal
         isShowing={isShowing}
         hide={toggle}
