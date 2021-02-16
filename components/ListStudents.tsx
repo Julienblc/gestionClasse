@@ -2,6 +2,7 @@ import * as React from "react";
 import { ChangeEvent, useState } from "react";
 import useStudents from "../hooks/students";
 import { Student } from "../interfaces";
+import EmptyPlaceholder from "./EmptyPlaceholder";
 import Modal from "./Modal/Modal";
 import useModal from "./Modal/useModal";
 import StudentCard from "./StudentCard";
@@ -50,6 +51,14 @@ const ListStudents = () => {
     }
   };
 
+  const renderStudentsPlaceholder = () => {
+    if (students && students.length > 0) {
+      return <ul id="student-list">{renderStudents()}</ul>;
+    } else {
+      return <EmptyPlaceholder addStudent={() => toggle("add")} />;
+    }
+  };
+
   const onChangeSearch = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchStudent(event.target.value);
   };
@@ -57,7 +66,7 @@ const ListStudents = () => {
   return (
     <>
       <div id="actions-container">
-        <button id="add-student-button" onClick={() => toggle("add")}>
+        <button className="add-student-button" onClick={() => toggle("add")}>
           Ajouter un élève
         </button>
         <input
@@ -70,7 +79,7 @@ const ListStudents = () => {
         />
       </div>
 
-      <ul id="student-list">{renderStudents()}</ul>
+      {renderStudentsPlaceholder()}
       <Modal
         isShowing={isShowing}
         hide={toggle}

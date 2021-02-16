@@ -3,7 +3,6 @@ $green: rgba(159, 250, 92, 0.9);
 $red: #ff3030;
 
 html {
-  background: rgb(67, 120, 247);
   background: linear-gradient(
     172deg,
     rgba(67, 120, 247, 1) 0%,
@@ -16,6 +15,7 @@ html {
 
 #school-manager-container {
   padding: 30px;
+  min-height: 100vh;
 
   #page-title {
     margin-left: 90px;
@@ -35,14 +35,13 @@ html {
       margin-top: 20px;
       border: 2px solid $dark-blue;
     }
-
-    #add-student-button {
-      border: 2px solid $green;
-      border-radius: 20px;
-      width: 200px;
-      font-size: large;
-      cursor: pointer;
-    }
+  }
+  .add-student-button {
+    border: 2px solid $green;
+    border-radius: 20px;
+    width: 200px;
+    font-size: large;
+    cursor: pointer;
   }
 
   #student-list {
@@ -91,6 +90,13 @@ html {
         background-color: transparent;
       }
     }
+  }
+
+  #empty-placeholder {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 }
 

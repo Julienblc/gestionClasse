@@ -50,7 +50,7 @@ const Modal = ({ isShowing, hide, modalContext, student }: Props) => {
       actionWord = "supprimé";
     }
     toast(
-      `L'utilisateur ${student.firstname} ${student.lastname} a bien été ${actionWord}`,
+      `L'élève ${student.firstname} ${student.lastname} a bien été ${actionWord}`,
       toastOptions
     );
   };
