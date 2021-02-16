@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { ChangeEvent, SyntheticEvent, useState } from "react";
 import ReactDOM from "react-dom";
-import { toast } from "react-toastify";
+import { toast, ToastOptions } from "react-toastify";
 import useStudents from "../../hooks/students";
 import { Student } from "../../interfaces";
 import { ModalContext } from "./useModal";
@@ -29,7 +29,7 @@ const Modal = ({ isShowing, hide, modalContext, student }: Props) => {
     student: Student,
     context: NotificationContext
   ) => {
-    let toastOptions: any = {
+    let toastOptions: ToastOptions = {
       position: "top-right",
       autoClose: 5000,
       hideProgressBar: false,
@@ -55,7 +55,7 @@ const Modal = ({ isShowing, hide, modalContext, student }: Props) => {
     );
   };
 
-  const handleModifyFormSubmit = (event: any) => {
+  const handleModifyFormSubmit = (event: SyntheticEvent) => {
     if (students) {
       let newStudents = students.map((newStudent) => {
         if (newStudent.id === student.id) {
@@ -71,7 +71,7 @@ const Modal = ({ isShowing, hide, modalContext, student }: Props) => {
     }
   };
 
-  const handleAddFormSubmit = (event: any) => {
+  const handleAddFormSubmit = (event: SyntheticEvent) => {
     if (students) {
       const sortStudents = [...students].sort(
         (student1, student2) => student1.id - student2.id
@@ -106,15 +106,15 @@ const Modal = ({ isShowing, hide, modalContext, student }: Props) => {
     }
   };
 
-  const onChangeFirstname = (event: any) => {
+  const onChangeFirstname = (event: ChangeEvent<HTMLInputElement>) => {
     setModifiedStudent({ ...modifiedStudent, firstname: event.target.value });
   };
 
-  const onChangeLastname = (event: any) => {
+  const onChangeLastname = (event: ChangeEvent<HTMLInputElement>) => {
     setModifiedStudent({ ...modifiedStudent, lastname: event.target.value });
   };
 
-  const onChangePictureUrl = (event: any) => {
+  const onChangePictureUrl = (event: ChangeEvent<HTMLInputElement>) => {
     setModifiedStudent({ ...modifiedStudent, picture_url: event.target.value });
   };
 

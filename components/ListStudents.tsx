@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import useStudents from "../hooks/students";
 import { Student } from "../interfaces";
 import Modal from "./Modal/Modal";
@@ -13,6 +13,7 @@ const ListStudents = () => {
 
   const renderStudents = () => {
     if (students) {
+      // Sort Students by lastname A -> Z
       const sortedStudents = [...students].sort((student1, student2) => {
         if (student1.lastname.toLowerCase() < student2.lastname.toLowerCase()) {
           return -1;
@@ -22,6 +23,7 @@ const ListStudents = () => {
         }
         return 0;
       });
+
       if (searchStudent === "") {
         return sortedStudents.map((student: Student) => (
           <li key={student.id}>
@@ -29,10 +31,13 @@ const ListStudents = () => {
           </li>
         ));
       } else {
+        // Check by firstname AND lastname
         return sortedStudents.map((student: Student) => {
           if (
-            student.firstname.toLowerCase().includes(searchStudent) ||
-            student.lastname.toLowerCase().includes(searchStudent)
+            student.firstname
+              .toLowerCase()
+              .includes(searchStudent.toLowerCase()) ||
+            student.lastname.toLowerCase().includes(searchStudent.toLowerCase())
           ) {
             return (
               <li key={student.id}>
@@ -45,7 +50,7 @@ const ListStudents = () => {
     }
   };
 
-  const onChangeSearch = (event: any) => {
+  const onChangeSearch = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchStudent(event.target.value);
   };
 
