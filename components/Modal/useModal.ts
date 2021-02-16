@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export type ModalContext = "modify" | "delete" | "";
+export type ModalContext = "add" | "modify" | "delete" | "";
 
 const useModal = () => {
   const [isShowing, setIsShowing] = useState(false);

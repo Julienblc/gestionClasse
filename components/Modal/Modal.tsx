@@ -11,11 +11,18 @@ type Props = {
   student: Student;
 };
 
+const emptyStudent = {
+  id: 0,
+  firstname: "",
+  lastname: "",
+  picture_url: "",
+};
+
 const Modal = ({ isShowing, hide, modalContext, student }: Props) => {
   const [modifiedStudent, setModifiedStudent] = useState(student);
   const { students, setStudents } = useStudents();
 
-  const handleFormSubmit = (event: any) => {
+  const handleModifyFormSubmit = (event: any) => {
     if (students) {
       let newStudents = students.map((newStudent) => {
         if (newStudent.id === student.id) {
@@ -26,6 +33,29 @@ const Modal = ({ isShowing, hide, modalContext, student }: Props) => {
       });
       setStudents(newStudents);
       event.preventDefault();
+      hide("");
+    }
+  };
+
+  const handleAddFormSubmit = (event: any) => {
+    if (students) {
+      const sortStudents = [...students].sort(
+        (student1, student2) => student1.id - student2.id
+      );
+      const lastStudent = sortStudents.pop();
+      let newStudentIndex = 0;
+      if (lastStudent) {
+        newStudentIndex = lastStudent.id + 1;
+      } else {
+        newStudentIndex = 1;
+      }
+      const newStudents = [
+        ...students,
+        { ...modifiedStudent, id: newStudentIndex },
+      ];
+      setStudents(newStudents);
+      event.preventDefault();
+      setModifiedStudent(emptyStudent);
       hide("");
     }
   };
@@ -48,15 +78,23 @@ const Modal = ({ isShowing, hide, modalContext, student }: Props) => {
     setModifiedStudent({ ...modifiedStudent, lastname: event.target.value });
   };
 
+  const onChangePictureUrl = (event: any) => {
+    setModifiedStudent({ ...modifiedStudent, picture_url: event.target.value });
+  };
+
   if (isShowing) {
-    if (modalContext === "modify") {
+    if (modalContext === "modify" || modalContext === "add") {
       return ReactDOM.createPortal(
         <>
           <div className="modal-overlay">
             <div className="modal-wrapper">
               <div className="modal">
                 <div className="modal-header">
-                  <h4>Modifier {student.firstname}</h4>
+                  <h4>
+                    {modalContext === "modify"
+                      ? `Modifier ${student.firstname} ${student.lastname}`
+                      : "Ajouter un élève"}
+                  </h4>
                   <button
                     type="button"
                     className="modal-close-button"
@@ -66,7 +104,13 @@ const Modal = ({ isShowing, hide, modalContext, student }: Props) => {
                   </button>
                 </div>
                 <div className="modal-body">
-                  <form onSubmit={handleFormSubmit}>
+                  <form
+                    onSubmit={
+                      modalContext === "modify"
+                        ? handleModifyFormSubmit
+                        : handleAddFormSubmit
+                    }
+                  >
                     <label>
                       Prénom :
                       <input
@@ -83,6 +127,16 @@ const Modal = ({ isShowing, hide, modalContext, student }: Props) => {
                         name="lastname"
                         value={modifiedStudent.lastname}
                         onChange={onChangeLastname}
+                        required
+                      />
+                    </label>
+                    <label>
+                      Image url :
+                      <input
+                        type="text"
+                        name="picture_url"
+                        value={modifiedStudent.picture_url}
+                        onChange={onChangePictureUrl}
                       />
                     </label>
                     <input type="submit" value="Envoyer" />

@@ -15,19 +15,19 @@ const studentsData = {
       picture_url: "https://randomuser.me/api/portraits/men/27.jpg",
     },
     {
-      id: 1,
+      id: 3,
       firstname: "Maxime",
       lastname: "Blanc",
       picture_url: "https://randomuser.me/api/portraits/men/5.jpg",
     },
     {
-      id: 2,
+      id: 8,
       firstname: "Colline",
       lastname: "Blanc",
       picture_url: "https://randomuser.me/api/portraits/women/40.jpg",
     },
     {
-      id: 3,
+      id: 2,
       firstname: "Charlotte",
       lastname: "Chanard",
       picture_url: "https://randomuser.me/api/portraits/women/63.jpg",
