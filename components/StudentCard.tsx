@@ -10,10 +10,18 @@ type Props = {
 const StudentCard = ({ student }: Props) => {
   const { isShowing, toggle, modalContext } = useModal();
 
+  const getStudentPictureUrl = () => {
+    if (student.picture_url) {
+      return student.picture_url;
+    } else {
+      return "https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png";
+    }
+  };
+
   return (
     <div className="student">
       <img
-        src={student.picture_url}
+        src={getStudentPictureUrl()}
         alt={`${student.firstname} ${student.lastname}`}
       />
       <h3>{student.firstname}</h3>

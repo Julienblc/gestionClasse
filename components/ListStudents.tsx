@@ -2,7 +2,6 @@ import * as React from "react";
 import { useState } from "react";
 import useStudents from "../hooks/students";
 import { Student } from "../interfaces";
-import AddModal from "./Modal/AddModal";
 import Modal from "./Modal/Modal";
 import useModal from "./Modal/useModal";
 import StudentCard from "./StudentCard";
@@ -14,14 +13,23 @@ const ListStudents = () => {
 
   const renderStudents = () => {
     if (students) {
+      const sortedStudents = [...students].sort((student1, student2) => {
+        if (student1.lastname.toLowerCase() < student2.lastname.toLowerCase()) {
+          return -1;
+        }
+        if (student1.lastname.toLowerCase() > student2.lastname.toLowerCase()) {
+          return 1;
+        }
+        return 0;
+      });
       if (searchStudent === "") {
-        return students.map((student: Student) => (
+        return sortedStudents.map((student: Student) => (
           <li key={student.id}>
             <StudentCard student={student} />
           </li>
         ));
       } else {
-        return students.map((student: Student) => {
+        return sortedStudents.map((student: Student) => {
           if (
             student.firstname.toLowerCase().includes(searchStudent) ||
             student.lastname.toLowerCase().includes(searchStudent)
@@ -46,7 +54,7 @@ const ListStudents = () => {
       <input
         type="text"
         name="search"
-        placeholder="Rechercher un élève"
+        placeholder="Rechercher un élève par nom"
         value={searchStudent}
         onChange={onChangeSearch}
       />
