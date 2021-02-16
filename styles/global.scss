@@ -2,7 +2,7 @@ $dark-blue: #091035;
 $green: rgba(159, 250, 92, 0.9);
 $red: #ff3030;
 
-body {
+html {
   background: rgb(67, 120, 247);
   background: linear-gradient(
     172deg,
@@ -11,9 +11,7 @@ body {
     rgba(67, 193, 247, 1) 100%
   );
 
-  body {
-    font-family: "Roboto", sans-serif;
-  }
+  font-family: "Roboto", sans-serif;
 }
 
 #class-container {

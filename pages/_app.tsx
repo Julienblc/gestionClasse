@@ -5,6 +5,8 @@ import Layout from "../components/Layout";
 import "../styles/global.scss";
 import React from "react";
 import StudentsProvider from "../providers/students";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const studentsData = {
   data: [
@@ -48,6 +50,7 @@ const ClassApp = ({ Component, pageProps }: AppProps) => {
       <Layout>
         <Component {...pageProps} />
       </Layout>
+      <ToastContainer />
     </StudentsProvider>
   );
 };

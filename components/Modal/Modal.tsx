@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
+import { toast } from "react-toastify";
 import useStudents from "../../hooks/students";
 import { Student } from "../../interfaces";
 import { ModalContext } from "./useModal";
@@ -11,6 +12,8 @@ type Props = {
   student: Student;
 };
 
+type NotificationContext = "add" | "modify" | "delete";
+
 const emptyStudent = {
   id: 0,
   firstname: "",
@@ -21,6 +24,36 @@ const emptyStudent = {
 const Modal = ({ isShowing, hide, modalContext, student }: Props) => {
   const [modifiedStudent, setModifiedStudent] = useState(student);
   const { students, setStudents } = useStudents();
+
+  const toggleNotification = (
+    student: Student,
+    context: NotificationContext
+  ) => {
+    let toastOptions: any = {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    };
+    let actionWord = "";
+    if (context === "add") {
+      toastOptions.type = toast.TYPE.SUCCESS;
+      actionWord = "créé";
+    } else if (context === "modify") {
+      toastOptions.type = toast.TYPE.INFO;
+      actionWord = "modifié";
+    } else if (context === "delete") {
+      toastOptions.type = toast.TYPE.WARNING;
+      actionWord = "supprimé";
+    }
+    toast(
+      `L'utilisateur ${student.firstname} ${student.lastname} a bien été ${actionWord}`,
+      toastOptions
+    );
+  };
 
   const handleModifyFormSubmit = (event: any) => {
     if (students) {
@@ -34,6 +67,7 @@ const Modal = ({ isShowing, hide, modalContext, student }: Props) => {
       setStudents(newStudents);
       event.preventDefault();
       hide("");
+      toggleNotification(modifiedStudent, "modify");
     }
   };
 
@@ -57,6 +91,7 @@ const Modal = ({ isShowing, hide, modalContext, student }: Props) => {
       event.preventDefault();
       setModifiedStudent(emptyStudent);
       hide("");
+      toggleNotification(modifiedStudent, "add");
     }
   };
 
@@ -67,6 +102,7 @@ const Modal = ({ isShowing, hide, modalContext, student }: Props) => {
       );
       setStudents(newStudents);
       hide("");
+      toggleNotification(student, "delete");
     }
   };
 

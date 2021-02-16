@@ -25,7 +25,7 @@ const Layout = ({ children, title = "Gestion de la classe" }: Props) => (
         </Link>
       </nav> */}
     </header>
-    <body>{children}</body>
+    {children}
     <footer></footer>
   </div>
 );
