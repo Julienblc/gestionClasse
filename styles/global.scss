@@ -1,14 +1,10 @@
 $dark-blue: #091035;
 $green: rgba(159, 250, 92, 0.9);
 $red: #ff3030;
+$purple: rgb(82, 46, 197);
 
 html {
-  background: linear-gradient(
-    172deg,
-    rgba(67, 120, 247, 1) 0%,
-    rgba(67, 169, 247, 1) 50%,
-    rgba(67, 193, 247, 1) 100%
-  );
+  background: rgba(244, 248, 251, 1);
 
   font-family: "Roboto", sans-serif;
 }
@@ -28,18 +24,25 @@ html {
     margin-left: 90px;
 
     #search-student-input {
-      width: 200px;
+      width: 190px;
       height: 20px;
       padding: 4px;
       border-radius: 5px;
       margin-top: 20px;
-      border: 2px solid $dark-blue;
+      border: 2px solid $purple;
     }
   }
   .add-student-button {
-    border: 2px solid $green;
-    border-radius: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    border: 2px solid $purple;
+    background-color: $purple;
+    color: white;
+    border-radius: 10px;
     width: 200px;
+    height: 40px;
     font-size: large;
     cursor: pointer;
   }
@@ -51,14 +54,18 @@ html {
     list-style-type: none;
   }
   .student {
+    transition: box-shadow 0.3s;
     width: 150px;
     background-color: white;
-    border: 2px solid $dark-blue;
-    border-radius: 10px;
+    border: 1px solid $dark-blue;
+    border-radius: 15px;
     margin: 20px 50px;
     padding: 20px;
     display: flex;
     flex-direction: column;
+    &:hover {
+      box-shadow: 0 0 11px rgba(33, 33, 33, 0.4);
+    }
 
     &__firstname {
       margin: 10px 0px;
@@ -81,13 +88,22 @@ html {
 
       &-modify {
         color: white;
-        border-color: $dark-blue;
-        background-color: $dark-blue;
+        border: 1px solid $purple;
+        color: $purple;
+        background-color: transparent;
+        &:hover {
+          background-color: $purple;
+          color: white;
+        }
       }
       &-delete {
         color: $red;
-        border-color: $red;
+        border: 1px solid $red;
         background-color: transparent;
+        &:hover {
+          background-color: $red;
+          color: white;
+        }
       }
     }
   }

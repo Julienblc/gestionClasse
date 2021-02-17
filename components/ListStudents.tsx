@@ -6,6 +6,7 @@ import EmptyPlaceholder from "./EmptyPlaceholder";
 import Modal from "./Modal/Modal";
 import useModal from "./Modal/useModal";
 import StudentCard from "./StudentCard";
+import Image from "next/image";
 
 const ListStudents = () => {
   const { students } = useStudents();
@@ -67,6 +68,7 @@ const ListStudents = () => {
     <>
       <div id="actions-container">
         <button className="add-student-button" onClick={() => toggle("add")}>
+          <Image src="/images/add.png" alt="me" width="16" height="16" />
           Ajouter un élève
         </button>
         <input
