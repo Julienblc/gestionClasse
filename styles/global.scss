@@ -57,7 +57,7 @@ html {
     transition: box-shadow 0.3s;
     width: 150px;
     background-color: white;
-    border: 1px solid $dark-blue;
+    border: 1px solid rgba(9, 16, 53, 0.2);
     border-radius: 15px;
     margin: 20px 50px;
     padding: 20px;
@@ -180,11 +180,13 @@ html {
     }
 
     #form-submit-button {
-      border: 2px solid $dark-blue;
+      border: 1px solid $purple;
+      background-color: $purple;
       border-radius: 5px;
-      color: $dark-blue;
+      color: white;
       font-size: medium;
       margin-top: 20px;
+      height: 40px;
       cursor: pointer;
     }
   }
@@ -203,9 +205,18 @@ html {
       &-yes {
         border: 2px solid $red;
         color: $red;
+        &:hover {
+          background-color: $red;
+          color: white;
+        }
       }
       &-no {
-        border: 2px solid $dark-blue;
+        border: 2px solid $purple;
+        color: $purple;
+        &:hover {
+          background-color: $purple;
+          color: white;
+        }
       }
     }
   }
