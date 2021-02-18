@@ -17,10 +17,10 @@ const ListStudents = () => {
     if (students) {
       // Sort Students by lastname A -> Z
       const sortedStudents = [...students].sort((student1, student2) => {
-        if (student1.lastname.toLowerCase() < student2.lastname.toLowerCase()) {
+        if (student1.lastName.toLowerCase() < student2.lastName.toLowerCase()) {
           return -1;
         }
-        if (student1.lastname.toLowerCase() > student2.lastname.toLowerCase()) {
+        if (student1.lastName.toLowerCase() > student2.lastName.toLowerCase()) {
           return 1;
         }
         return 0;
@@ -36,10 +36,10 @@ const ListStudents = () => {
         // Check by firstname AND lastname
         return sortedStudents.map((student: Student) => {
           if (
-            student.firstname
+            student.firstName
               .toLowerCase()
               .includes(searchStudent.toLowerCase()) ||
-            student.lastname.toLowerCase().includes(searchStudent.toLowerCase())
+            student.lastName.toLowerCase().includes(searchStudent.toLowerCase())
           ) {
             return (
               <li key={student.id}>
@@ -86,10 +86,10 @@ const ListStudents = () => {
         isShowing={isShowing}
         hide={toggle}
         student={{
-          id: 0,
-          firstname: "",
-          lastname: "",
-          picture_url: "",
+          id: "",
+          firstName: "",
+          lastName: "",
+          picture: "",
         }}
         modalContext="add"
       />

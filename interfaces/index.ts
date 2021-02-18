@@ -5,8 +5,8 @@
 // import { User } from 'path/to/interfaces';
 
 export type Student = {
-  id: number;
-  firstname: string;
-  lastname: string;
-  picture_url: string;
+  id: string;
+  firstName: string;
+  lastName: string;
+  picture: string;
 };

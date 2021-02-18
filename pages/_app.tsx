@@ -7,52 +7,21 @@ import React from "react";
 import StudentsProvider from "../providers/students";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
-const studentsData = {
-  data: [
-    {
-      id: 0,
-      firstname: "Brianna",
-      lastname: "Steeves",
-      picture_url: "https://randomuser.me/api/portraits/women/45.jpg",
-    },
-    {
-      id: 3,
-      firstname: "Luke",
-      lastname: "Scott",
-      picture_url: "https://randomuser.me/api/portraits/men/66.jpg",
-    },
-    {
-      id: 8,
-      firstname: "Ella",
-      lastname: "Simmons",
-      picture_url: "https://randomuser.me/api/portraits/women/30.jpg",
-    },
-    {
-      id: 2,
-      firstname: "Emma",
-      lastname: "Romero",
-      picture_url: "https://randomuser.me/api/portraits/women/47.jpg",
-    },
-    {
-      id: 4,
-      firstname: "Dan",
-      lastname: "Mitchell",
-      picture_url: "https://randomuser.me/api/portraits/men/83.jpg",
-    },
-    {
-      id: 9,
-      firstname: "Anne",
-      lastname: "Gibson",
-      picture_url: "https://randomuser.me/api/portraits/women/65.jpg",
-    },
-  ],
-};
+import useSWR from "swr";
+import fetcher from "../utils/fetcher";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 const ClassApp = ({ Component, pageProps }: AppProps) => {
   moment.locale("fr");
+
+  const { data, error } = useSWR("/user?limit=10", fetcher);
+
+  if (error)
+    return <div>Une erreur est survenue, veuillez re-essayer plus tard.</div>;
+  if (!data) return <LoadingSpinner />;
+
   return (
-    <StudentsProvider students={pageProps.students}>
+    <StudentsProvider students={data.data}>
       <Layout>
         <Component {...pageProps} />
       </Layout>
@@ -62,12 +31,10 @@ const ClassApp = ({ Component, pageProps }: AppProps) => {
 };
 
 ClassApp.getInitialProps = async (appContext: AppContext) => {
-  const students = studentsData.data;
   const appProps = await App.getInitialProps(appContext);
 
   appProps.pageProps = {
     ...(appProps.pageProps || {}),
-    students,
   };
 
   return { ...appProps };

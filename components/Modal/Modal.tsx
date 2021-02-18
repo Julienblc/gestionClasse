@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import { toast, ToastOptions } from "react-toastify";
 import useStudents from "../../hooks/students";
 import { Student } from "../../interfaces";
+import makeRand from "../../utils/random";
 import { ModalContext } from "./useModal";
 
 type Props = {
@@ -14,11 +15,11 @@ type Props = {
 
 type NotificationContext = "add" | "modify" | "delete";
 
-const emptyStudent = {
-  id: 0,
-  firstname: "",
-  lastname: "",
-  picture_url: "",
+const emptyStudent: Student = {
+  id: "",
+  firstName: "",
+  lastName: "",
+  picture: "",
 };
 
 const Modal = ({ isShowing, hide, modalContext, student }: Props) => {
@@ -50,7 +51,7 @@ const Modal = ({ isShowing, hide, modalContext, student }: Props) => {
       actionWord = "supprimé";
     }
     toast(
-      `L'élève ${student.firstname} ${student.lastname} a bien été ${actionWord}`,
+      `L'élève ${student.firstName} ${student.lastName} a bien été ${actionWord}`,
       toastOptions
     );
   };
@@ -73,16 +74,10 @@ const Modal = ({ isShowing, hide, modalContext, student }: Props) => {
 
   const handleAddFormSubmit = (event: SyntheticEvent) => {
     if (students) {
-      const sortStudents = [...students].sort(
-        (student1, student2) => student1.id - student2.id
-      );
-      const lastStudent = sortStudents.pop();
-      let newStudentIndex = 0;
-      if (lastStudent) {
-        newStudentIndex = lastStudent.id + 1;
-      } else {
-        newStudentIndex = 1;
-      }
+      // I respect the id length 20 format rendered by the API.
+      // I consider that the probability of falling twice on the same string is impossible.
+      // In order to do things properly, I would have to use an incrementing method.
+      let newStudentIndex = makeRand(20);
       const newStudents = [
         ...students,
         { ...modifiedStudent, id: newStudentIndex },
@@ -107,15 +102,15 @@ const Modal = ({ isShowing, hide, modalContext, student }: Props) => {
   };
 
   const onChangeFirstname = (event: ChangeEvent<HTMLInputElement>) => {
-    setModifiedStudent({ ...modifiedStudent, firstname: event.target.value });
+    setModifiedStudent({ ...modifiedStudent, firstName: event.target.value });
   };
 
   const onChangeLastname = (event: ChangeEvent<HTMLInputElement>) => {
-    setModifiedStudent({ ...modifiedStudent, lastname: event.target.value });
+    setModifiedStudent({ ...modifiedStudent, lastName: event.target.value });
   };
 
   const onChangePictureUrl = (event: ChangeEvent<HTMLInputElement>) => {
-    setModifiedStudent({ ...modifiedStudent, picture_url: event.target.value });
+    setModifiedStudent({ ...modifiedStudent, picture: event.target.value });
   };
 
   if (isShowing) {
@@ -128,7 +123,7 @@ const Modal = ({ isShowing, hide, modalContext, student }: Props) => {
                 <div className="modal-header">
                   <h3 className="modal-title">
                     {modalContext === "modify"
-                      ? `Modifier ${student.firstname} ${student.lastname}`
+                      ? `Modifier ${student.firstName} ${student.lastName}`
                       : "Ajouter un élève"}
                   </h3>
                   <button
@@ -152,7 +147,7 @@ const Modal = ({ isShowing, hide, modalContext, student }: Props) => {
                       <input
                         type="text"
                         name="firstname"
-                        value={modifiedStudent.firstname}
+                        value={modifiedStudent.firstName}
                         onChange={onChangeFirstname}
                         required
                       />
@@ -162,7 +157,7 @@ const Modal = ({ isShowing, hide, modalContext, student }: Props) => {
                       <input
                         type="text"
                         name="lastname"
-                        value={modifiedStudent.lastname}
+                        value={modifiedStudent.lastName}
                         onChange={onChangeLastname}
                         required
                       />
@@ -172,7 +167,7 @@ const Modal = ({ isShowing, hide, modalContext, student }: Props) => {
                       <input
                         type="text"
                         name="picture_url"
-                        value={modifiedStudent.picture_url}
+                        value={modifiedStudent.picture}
                         onChange={onChangePictureUrl}
                       />
                     </div>
@@ -201,7 +196,7 @@ const Modal = ({ isShowing, hide, modalContext, student }: Props) => {
               <div className="modal">
                 <div className="modal-header">
                   <h4 className="modal-title">
-                    Supprimer {student.firstname} {student.lastname} ?
+                    Supprimer {student.firstName} {student.lastName} ?
                   </h4>
                   <button
                     type="button"
