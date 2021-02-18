@@ -1,4 +1,3 @@
-import moment from "moment";
 import App, { AppContext, AppProps } from "next/app";
 import "../styles/global.scss";
 import Layout from "../components/Layout";
@@ -12,8 +11,6 @@ import fetcher from "../utils/fetcher";
 import LoadingSpinner from "../components/LoadingSpinner";
 
 const ClassApp = ({ Component, pageProps }: AppProps) => {
-  moment.locale("fr");
-
   const { data, error } = useSWR("/user?limit=10", fetcher);
 
   if (error)
